@@ -34,16 +34,12 @@ def show_category(request, category_name_slug):
     
     return render(request, 'rango/category.html', context=context_dict)
 
+@login_required
 def add_category(request):
     form = CategoryForm()
     
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        
-        user = authenticate(username=username, password=password)
-        
-        if not user.is_active:
+        if not request.user.is_authenticated():
             return redirect('rango:login')
         form = CategoryForm(request.POST)
         
@@ -54,6 +50,7 @@ def add_category(request):
             print(form.errors)
     return render(request, 'rango/add_category.html', {'form': form})
 
+@login_required
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -66,12 +63,7 @@ def add_page(request, category_name_slug):
     form = PageForm()
     
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        
-        user = authenticate(username=username, password=password)
-        
-        if not user.is_active:
+        if not request.user.is_authenticated():
             return redirect('rango:login')
         form = PageForm(request.POST)
         
