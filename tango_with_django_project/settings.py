@@ -131,7 +131,10 @@ USE_TZ = True
 STATICFILES_DIRS = [STATIC_DIR, ]
 STATIC_URL = '/static/'
 
-# Media files
 
+# Media files
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+#SESSION
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
